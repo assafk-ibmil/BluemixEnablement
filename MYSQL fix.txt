@@ -1,0 +1,19 @@
+- Force starting the MySQL container if it is failing:
+ cf ic start mysql-$suffix
+  or
+  cf ic restart mysql-$suffix
+ 
+- Once the MySQL container is 'running' you can do the following to disable security:
+   cf ic exec -it mysql-${SUFFIX} bash
+   And within the container prompt, do the following:
+   - mysql_secure_installation
+         Set the root password to Pass4Admin123
+ Answer N for all and only Y for reload Privilege tables (last prompt)
+   - ./load-data.sh
+   - mysql -u root -pPass4Admin123
+        CREATE USER dbuser IDENTIFIED BY 'Pass4dbUs3R';
+        grant all on inventorydb.* to dbuser;
+        quit;
+   - exit
+ 
+You can then continue the exercise
